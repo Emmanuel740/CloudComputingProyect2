@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<style>
+    .centro {
+        width: 500px;
+        margin: auto;
+    }
+    
+    .registrar {
+        font-size: 22px;
+        font-family: 'Open Sans', sans-serif;
+    }
+    
+    .ta {
+        margin: auto;
+        width: 90%;
+        padding: 20px;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="./home.html">Base de Datos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Modificaciones
+                      </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <a class="dropdown-item" href="./actualizar.html">Actualizar</a>
+                        <a class="dropdown-item" href="./consultar_id.html">Consultar</a>
+
+                        <a class="dropdown-item" href="./eliminar_id.html">Eliminar</a>
+
+                    </div>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Rentas
+                          </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            <a class="dropdown-item" href="./renta.html">Registrar Renta</a>
+                            <a class="dropdown-item" href="./consultar_reportes.html">Consultar Reportes</a>
+
+
+
+                        </div>
+                    </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="centro">
+        <br><br>
+
+        <form enctype="multipart/form-data">
+            <p id="error" style="color: red; display: none;"></p>
+            <p class="registrar">Registrar Renta</p>
+
+            <input name="user" type="text" class="form-control" placeholder="Por favor inserta el Nombre de Usuario" required><br>
+            <input name="propiedad" type="text" class="form-control" placeholder="Por favor inserta el Id de la Propiedad" required><br>
+
+            <button type="submit" class="btn btn-block btn-success" style="background-color: rgb(37, 139, 223);">Guardar</button>
+
+        </form>
+
+        <script type="text/javascript">
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3001/RegistrarRenta',
+                    data: $('form').serialize(),
+                    success: function(respuesta) {
+                        console.log(respuesta);
+                        alert('Renta registrada con exito');
+                    },
+
+                    error: function(err) {
+                        alert(err.responseJSON.err.message);
+                        $('#error').text(err.responseJSON.err.message);
+                        $('#error').show();
+
+                    }
+                });
+            });
+
+            $('input').on('focus', function(e) {
+
+                $('#error').hide();
+
+            });
+        </script>
+
+
+
+        <form enctype="multipart/form-data">
+            <br><br>
+            <p class="registrar">Reportes de Propiedades Por Tipo</p>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" style="float: right;">
+
+                    <li class="page-item"><a class="page-link" href="renta_precio.html">Consultar Por Rango de Precio</a></li>
+
+
+                </ul>
+            </nav>
+            <input name="tipo_propiedad" type="text" class="form-control" placeholder="Por favor inserta el Tipo de Propiedad a Consultar" required><br>
+            <input name="limite" type="text" class="form-control" placeholder="Por favor inserta el Limite de propiedades a Consultar" required><br>
+            <button type="submit" class="btn btn-block btn-success" style="background-color: rgb(37, 139, 223);">Consultar</button>
+
+        </form>
+    </div>
+
+    <div class="ta">
+
+        <br><br>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Pais</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Calle</th>
+                    <th scope="col">Min_Noches</th>
+                    <th scope="col">Max_Noches</th>
+
+
+
+
+                </tr>
+            </thead>
+
+            <tbody id="contenido">
+
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3001/ConsultarTipoPropiedades',
+                data: $('form').serialize(),
+
+                success: function(res) {
+                    console.log(res);
+                    if (res.result.length === 0) {
+                        alert('Ese usuario no existe');
+                    }
+                    contenido.innerHTML = null
+
+                    for (let usuarios of res.result) {
+
+                        contenido.innerHTML += `
+                                        
+                                        <tr>
+                                            <th scope="row">${ usuarios._id }</th>
+                                            <td>${ usuarios.name }</td>
+                                            <td>${ usuarios.property_type }</td>
+                                            <td>${ usuarios.price.$numberDecimal }</td>
+                                            <td>${ usuarios.address.country }</td>
+                                            <td>${ usuarios.address.market }</td>
+                                            <td>${ usuarios.address.street }</td>
+                                            <td>${ usuarios.minimum_nights }</td>
+                                            <td>${ usuarios.maximum_nights }</td>
+
+
+
+
+                                        </tr>
+                                               `
+                    }
+                },
+                error: function(err) {
+                    $('#error').text(err.responseJSON.err.message);
+                    $('#error').show();
+
+                }
+            });
+        });
+
+        $('input').on('focus', function(e) {
+
+            $('#error').hide();
+        });
+    </script>
+</body>
+
+</html>
