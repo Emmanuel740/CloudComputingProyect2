@@ -13,7 +13,7 @@
 <style>
     .centro {
         width: 500px;
-        margin: auto;
+        margin-left: 20px;
     }
     
     .registrar {
@@ -22,9 +22,10 @@
     }
     
     .ta {
-        margin: auto;
-        width: 90%;
+        width: 60%;
         padding: 20px;
+        float: right;
+        margin-right: 10px;
     }
 </style>
 
@@ -72,7 +73,7 @@
         </div>
     </nav>
 
-    <div class="centro">
+    <div class="centro" style="float: left;">
         <br><br>
 
         <form enctype="multipart/form-data">
@@ -139,7 +140,22 @@
 
     <div class="ta">
 
-        <br><br>
+        <br><br><br>
+        <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+            <p>Hola</p>
+
+        </div>
         <table class="table table-dark">
             <thead>
                 <tr>
@@ -152,7 +168,7 @@
                     <th scope="col">Ciudad</th>
                     <th scope="col">Calle</th>
                     <th scope="col">Min_Noches</th>
-                    <th scope="col">Max_Noches</th>
+
 
 
 
@@ -164,7 +180,10 @@
 
             </tbody>
         </table>
+
     </div>
+
+
     <script type="text/javascript">
         $('form').on('submit', function(e) {
             e.preventDefault();
@@ -195,7 +214,7 @@
                                             <td>${ usuarios.address.market }</td>
                                             <td>${ usuarios.address.street }</td>
                                             <td>${ usuarios.minimum_nights }</td>
-                                            <td>${ usuarios.maximum_nights }</td>
+                                            
 
 
 
